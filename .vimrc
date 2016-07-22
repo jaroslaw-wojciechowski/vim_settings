@@ -2,15 +2,22 @@
 execute pathogen#infect()
 
 " Nerd Tree
-autocmd vimenter * NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let NERDTreeShowHidden=1
 map <F2> :NERDTreeToggle<CR>
 
 " colors
-syntax enable
-set background=dark
-colorscheme anderson
+
+if has('gui_running')
+  autocmd vimenter * NERDTree
+  syntax enable
+  set background=dark
+  colorscheme deep-space
+else
+  syntax enable
+  set background=dark
+  colorscheme deep-space
+endif
 
 " spaces & tabs
 set tabstop=4
@@ -30,7 +37,7 @@ set showmatch
 set nowrap
 set cmdheight=2
 set ruler
-set fileencoding
+set fileencoding=utf-8
 
 " Search
 set incsearch
@@ -47,11 +54,18 @@ noremap <C-S-Tab> :<C-U>tabprevious<CR>
 inoremap <C-S-Tab> <C-\><C-N>:tabprevious<CR>
 cnoremap <C-S-Tab> <C-C>:tabprevious<CR>
 
+" diff
+noremap <F5> :vnew<CR>
+noremap <F6> :windo diffthis<CR>
+
 " hex editor
 noremap <F10> : %!xxd<CR>
 
 " json formatter
 noremap <F12> : %!python -m json.tool<CR>
+
+" xml formatter
+noremap <F9> : %!xmllint --format %<CR>
 
 " statusline settings
 set statusline=
