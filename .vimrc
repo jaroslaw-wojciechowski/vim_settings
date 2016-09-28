@@ -1,5 +1,8 @@
 " Pathogen
 execute pathogen#infect()
+filetype on
+filetype plugin on
+filetype indent on
 
 " Nerd Tree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -7,9 +10,8 @@ let NERDTreeShowHidden=1
 map <F2> :NERDTreeToggle<CR>
 
 " colors
-
 if has('gui_running')
-  autocmd vimenter * NERDTree
+  autocmd VimEnter * NERDTree
   syntax enable
   set background=dark
   colorscheme deep-space
@@ -38,12 +40,20 @@ set nowrap
 set cmdheight=2
 set ruler
 set fileencoding=utf-8
+set updatetime=250
 
 " Search
 set incsearch
 set hlsearch
 set ic
 noremap <F3> :set hlsearch! hlsearch?<CR>
+
+" scroll
+noremap <C-H> zh
+noremap <C-J> <C-e>
+noremap <C-K> <C-y>
+noremap <C-L> zl
+
 
 " CTRL-Tab is next tab
 noremap <C-Tab> :<C-U>tabnext<CR>
@@ -68,14 +78,16 @@ noremap <F12> : %!python -m json.tool<CR>
 noremap <F9> : %!xmllint --format %<CR>
 
 " statusline settings
+set laststatus=2
 set statusline=
-set statusline+=%7*\[%n]                                  "buffernr
 set statusline+=%1*\ %<%F\                                "File+path
 set statusline+=%2*\ %y\                                  "FileType
 set statusline+=%3*\ %{''.(&fenc!=''?&fenc:&enc).''}      "Encoding
 set statusline+=%3*\ %{(&bomb?\",BOM\":\"\")}\            "Encoding2
 set statusline+=%4*\ %{&ff}\                              "FileFormat (dos/unix..) 
-set statusline+=%8*\ %=\ row:%l/%L\ (%03p%%)\             "Rownumber/total (%)
+set statusline+=%5*\ ascii:\%03.3b
+set statusline+=%5*\ hex:\%02.2B
+set statusline+=%8*\ %=\ line:%l/%L\ (%03p%%)\            "Rownumber/total (%)
 set statusline+=%9*\ col:%03c\                            "Colnr
 set statusline+=%0*\ \ %m%r%w\ %P\ \                      "Modified? Readonly? Top/bot.
 
