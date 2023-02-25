@@ -9,6 +9,12 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 let NERDTreeShowHidden=1
 map <F2> :NERDTreeToggle<CR>
 
+" Open file
+augroup ProjectDrawer
+    autocmd!
+    autocmd VimEnter * if argc() == 0 | edit ~/Downloads/vim-temp.txt | endif
+augroup END
+
 " colors
 if has('gui_running')
   autocmd VimEnter * NERDTree
@@ -41,6 +47,7 @@ set cmdheight=2
 set ruler
 set fileencoding=utf-8
 set updatetime=250
+set guifont=Monaco:h14
 
 " Search
 set incsearch
@@ -75,7 +82,12 @@ noremap <F10> : %!xxd<CR>
 noremap <F12> : %!python -m json.tool<CR>
 
 " xml formatter
+noremap <F8> : %!XMLLINT_INDENT="  " xmllint --format -<CR>
 noremap <F9> : %!xmllint --format %<CR>
+
+" javascript
+autocmd BufReadPre *.js let b:javascript_lib_use_react = 1
+autocmd BufReadPre *.js let b:javascript_lib_use_angularjs = 1
 
 " statusline settings
 set laststatus=2
