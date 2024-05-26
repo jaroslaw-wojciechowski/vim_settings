@@ -55,12 +55,17 @@ set hlsearch
 set ic
 noremap <F3> :set hlsearch! hlsearch?<CR>
 
+" Move visually selected lines up or down
+nnoremap <D-K> :m .-2<CR>==
+nnoremap <D-J> :m .+1<CR>==
+vnoremap <D-K> :m '<-2<CR>gv=gv
+vnoremap <D-J> :m '>+1<CR>gv=gv
+
 " scroll
 noremap <C-H> zh
 noremap <C-J> <C-e>
 noremap <C-K> <C-y>
 noremap <C-L> zl
-
 
 " CTRL-Tab is next tab
 noremap <C-Tab> :<C-U>tabnext<CR>
